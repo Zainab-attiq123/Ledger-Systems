@@ -106,7 +106,7 @@ class CustomerResponse(BaseModel):
 
 # ============= SALE ITEM SCHEMAS =============
 class SaleItemCreate(BaseModel):
-    product_name: str  # Product name se link kara (ID nahi)
+    product_name: str  
     quantity: int
     price_per_unit: float
 
@@ -122,8 +122,8 @@ class SaleItemResponse(BaseModel):
 
 # ============= SALE (TRANSACTION) SCHEMAS =============
 class SaleCreate(BaseModel):
-    customer_name: str  # Customer name se link kara (ID nahi)
-    transaction_type: TransactionType  # Cash/Loan/Credit
+    customer_name: str  
+    transaction_type: TransactionType  
     items: List[SaleItemCreate]
 
 class SaleResponse(BaseModel):

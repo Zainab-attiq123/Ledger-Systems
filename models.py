@@ -22,11 +22,11 @@ class User(Base):
     __tablename__ = "users"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String(255), nullable=False, index=True)  # Name se search kar skte hain
+    name = Column(String(255), nullable=False, index=True)  
     email = Column(String(255), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     role = Column(Enum(UserRole), nullable=False, default=UserRole.CUSTOMER)
-    store_id = Column(String(36), ForeignKey("stores.id"))  # Salesman/Admin ek store se linked
+    store_id = Column(String(36), ForeignKey("stores.id"))  
     created_at = Column(DateTime, default=datetime.utcnow)
     
     store = relationship("Store", back_populates="users")
@@ -41,8 +41,8 @@ class Store(Base):
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = Column(String(255), nullable=False)
-    admin_id = Column(String(36), ForeignKey("users.id"))  # Admin ek hi hoga
-    total_balance = Column(Float, default=0.0)  # Cash + Loan + Credit
+    admin_id = Column(String(36), ForeignKey("users.id"))  
+    total_balance = Column(Float, default=0.0) 
     created_at = Column(DateTime, default=datetime.utcnow)
     
     admin = relationship("User", foreign_keys=[admin_id])
@@ -59,7 +59,7 @@ class Product(Base):
     __tablename__ = "products"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String(255), nullable=False, index=True)  # Name se product dhundha ja sakta hai
+    name = Column(String(255), nullable=False, index=True)  
     price = Column(Float, nullable=False)
     quantity_in_stock = Column(Integer, default=0)
     store_id = Column(String(36), ForeignKey("stores.id"), nullable=False)
@@ -76,11 +76,11 @@ class Customer(Base):
     __tablename__ = "customers"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String(255), nullable=False, index=True)  # Name se customer dhundha ja sakta hai
+    name = Column(String(255), nullable=False, index=True)  
     phone = Column(String(20))
     email = Column(String(255))
     store_id = Column(String(36), ForeignKey("stores.id"), nullable=False)
-    total_balance = Column(Float, default=0.0)  # Jo customer owe kare
+    total_balance = Column(Float, default=0.0)  
     created_at = Column(DateTime, default=datetime.utcnow)
     
     store = relationship("Store", back_populates="customers")
@@ -98,7 +98,7 @@ class Sale(Base):
     customer_id = Column(String(36), ForeignKey("customers.id"), nullable=False)
     salesman_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     
-    transaction_type = Column(Enum(TransactionType), nullable=False)  # Cash/Loan/Credit
+    transaction_type = Column(Enum(TransactionType), nullable=False) 
     total_amount = Column(Float, nullable=False)
     quantity_items = Column(Integer, default=0)
     
@@ -112,7 +112,7 @@ class Sale(Base):
     def __repr__(self):
         return f"<Sale: {self.total_amount} ({self.transaction_type})>"
 
-# ============= SALE ITEM MODEL (Sale mein kaunse products liye gaye) =============
+# ============= SALE ITEM MODEL =============
 class SaleItem(Base):
     __tablename__ = "sale_items"
     
