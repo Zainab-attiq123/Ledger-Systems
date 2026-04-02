@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 from typing import Optional
+requirement
+from jose import jwt   
 from jose import jwt   # ✅ FIXED (yahan change kiya hai)
+ main
 from passlib.context import CryptContext
 from fastapi import HTTPException, status
 
